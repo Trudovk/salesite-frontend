@@ -295,13 +295,6 @@ export default function NewDiscount() {
           {fieldErrors.tags && <p className="mt-1 text-sm text-red-600">{fieldErrors.tags}</p>}
         </div>
 
-        {/* Общие ошибки */}
-        {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600 text-sm">{error}</p>
-          </div>
-        )}
-
         {/* Кнопка отправки */}
         <button
           type="submit"
