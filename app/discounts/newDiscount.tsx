@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import getCookie from '../../lib/getCookie';
 import { Companies, Categories, SalePercent, Tags } from '../../lib/types';
 import CustomSelectDropdown from '../../components/CustomSelectDropdown';
+import ToastNotification from '../../components/ToastNotification';
 
 const csrftoken = getCookie('csrftoken');
 
@@ -35,6 +36,7 @@ export default function NewDiscount() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
@@ -110,7 +112,17 @@ export default function NewDiscount() {
         },
         body: JSON.stringify(payload),
       });
-
+      setShowToast(true);
+      setForm({
+        title: '',
+        description: '',
+        company: '',
+        categories: '',
+        sales: '',
+        sale_date_start: '',
+        sale_date_end: '',
+        tags: [],
+      });
       if (!response.ok) {
         const contentType = response.headers.get('content-type');
         let errorMessage = 'Ошибка при добавлении акции';
@@ -124,18 +136,6 @@ export default function NewDiscount() {
       }
 
       // Сброс формы после успешной отправки
-      setForm({
-        title: '',
-        description: '',
-        company: '',
-        categories: '',
-        sales: '',
-        sale_date_start: '',
-        sale_date_end: '',
-        tags: [],
-      });
-
-      alert('Акция успешно создана!');
     } catch (err: any) {
       setError(err.message || 'Ошибка');
     } finally {
@@ -145,6 +145,9 @@ export default function NewDiscount() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
+      {showToast && (
+        <ToastNotification message="Акция успешно создана!" onClose={() => setShowToast(false)} />
+      )}
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Добавить новую акцию</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
