@@ -56,7 +56,7 @@ export default function DiscountFilters({
                   className="hidden"
                 />
                 <span
-                  className={`px-4 py-1 rounded-full text-sm 
+                  className={`px-4 py-1 rounded-full text-sm whitespace-nowrap 
                     ${
                       statusFilter === opt.value
                         ? opt.activeClass + ' text-white'
@@ -85,7 +85,7 @@ export default function DiscountFilters({
                 className="hidden"
               />
               <span
-                className={`px-4 py-1 rounded-full text-sm 
+                className={`px-4 py-1 rounded-full whitespace-nowrap text-sm 
                   ${
                     categoryFilter.length === 0
                       ? 'bg-purple-500 text-white'
@@ -106,7 +106,7 @@ export default function DiscountFilters({
                     className="hidden"
                   />
                   <span
-                    className={`px-4 py-1 rounded-full text-sm 
+                    className={`px-4 py-1 rounded-full whitespace-nowrap text-sm 
                       ${isActive ? 'bg-purple-500 text-white' : 'bg-gray-300 text-gray-700'}`}
                   >
                     {category.label}
@@ -131,7 +131,7 @@ export default function DiscountFilters({
                 className="hidden"
               />
               <span
-                className={`px-4 py-1 rounded-full text-sm 
+                className={`px-4 py-1 rounded-full text-sm  
                   ${
                     salePercentFilter.length === 0
                       ? 'bg-yellow-500 text-white'
@@ -154,7 +154,7 @@ export default function DiscountFilters({
                     className="hidden"
                   />
                   <span
-                    className={`px-4 py-1 rounded-full text-sm 
+                    className={`px-4 py-1 rounded-full text-sm whitespace-nowrap 
                       ${isActive ? 'bg-yellow-500 text-white' : 'bg-gray-300 text-gray-700'}`}
                   >
                     {sale.label}
@@ -198,7 +198,7 @@ export default function DiscountFilters({
                     className="hidden"
                   />
                   <span
-                    className={`px-4 py-1 rounded-full text-sm 
+                    className={`px-4 py-1 rounded-full text-sm whitespace-nowrap 
                       ${isActive ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}
                   >
                     {tag.label}
