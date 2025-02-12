@@ -1,10 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { DiscountType, DiscountsResponseType } from 'lib/types';
 import getDiscountStatus from 'lib/getDiscountStatus';
 import DiscountFilters from '../../components/DiscountFilters';
 import { Categories } from 'lib/types';
 import DiscountCard from 'components/DiscountCard';
+import { useInView } from 'react-intersection-observer';
 
 export default function Discounts() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
@@ -31,6 +32,15 @@ export default function Discounts() {
       },
       initialPageParam: 1,
     });
+  const { ref, inView } = useInView({
+    threshold: 1.0,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   const allDiscounts = data?.pages.flatMap(page => page.results) || [];
 
@@ -120,7 +130,7 @@ export default function Discounts() {
               disabled={isFetchingNextPage}
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 transition-colors"
             >
-              {isFetchingNextPage ? 'Загрузка...' : 'Загрузить еще'}
+              {isFetchingNextPage ? 'Загрузка...' : <div ref={ref}>Загрузить еще</div>}
             </button>
           </div>
         )}
